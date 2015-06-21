@@ -1,0 +1,12 @@
+---
+- shell: echo "deb http://debian.datastax.com/community stable main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+  become_user: root
+
+- shell: curl -L http://debian.datastax.com/debian/repo_key | sudo apt-key add -
+  become_user: root
+
+- action: apt update_cache=yes
+- action: apt pkg="{{item}}" state=installed
+  with_items:
+    - dsc21
+    - cassandra-tools

@@ -1,0 +1,28 @@
+---
+- file: path="{{jdk_install_path}}" state=directory
+
+- shell: java -version 2>&1 | head -n 1 | awk -F '"' '{print $2}'
+  register: java_version_result
+
+- include: install_java.yml
+  when: java_version_result.stdout.find("{{jdk_version}}") == -1
+
+- action: apt pkg=libc6-i386 state=installed
+  when: (ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian')
+
+- action: apt pkg=libjna-java state=installed
+  become_user: root
+
+- shell: "lsb_release -c|cut -f2"
+  register: debian_codename_result
+
+- apt_repository: repo="deb {{debian_mirror}} {{debian_codename_result.stdout}} main contrib non-free" state=present
+  when: (ansible_distribution == 'Debian')
+
+- shell: "dpkg -s cassandra|grep Version|cut -d' ' -f2"
+  register: cassandra_version_result
+
+- debug: msg="Cassandra {{cassandra_version_result.stdout}} JDK {{java_version_result.stdout}}"
+
+- include: "install_cassandra.yml"
+  when: cassandra_version_result.stdout.find("{{cassandra_version}}") == -1

@@ -1,0 +1,7 @@
+---
+- shell: "wget --header 'Cookie: oraclelicense=accept-securebackup-cookie' {{jdk_url}} -O /tmp/java7.tar.gz"
+
+- shell: tar -zxf /tmp/java7.tar.gz -C "{{jdk_install_path}}"
+
+- shell: update-alternatives --install /usr/bin/java java "/opt/jdk/jdk{{jdk_version}}/bin/java" 100
+  become: true

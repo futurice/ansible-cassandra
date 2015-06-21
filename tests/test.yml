@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  remote_user: root
+  become: yes
+  vars:
+    user: root
+    group: root
+  roles:
+    - futurice.cassandra
