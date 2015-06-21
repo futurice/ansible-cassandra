@@ -26,3 +26,6 @@
 
 - include: "install_cassandra.yml"
   when: cassandra_version_result.stdout.find("{{cassandra_version}}") == -1
+
+- include: initialize_cluster.yml
+  when: "{{cassandra_initialize_cluster}}"

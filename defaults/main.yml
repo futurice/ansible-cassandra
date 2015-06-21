@@ -3,6 +3,15 @@ jdk_url: "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-i5
 jdk_install_path: "/opt/jdk"
 jdk_version: "1.7.0_79"
 
-
 debian_mirror: "http://ftp.uk.debian.org/debian"
+
 cassandra_version: "2.1.6"
+
+cassandra_config: "/etc/cassandra/cassandra.yaml"
+
+# minimal cluster configuration
+cassandra_endpoint_snitch: GossipingPropertyFileSnitch
+cassandra_cluster_name: helloworld
+cassandra_listen_address: "{{ ansible_eth1.ipv4.address }}"
+cassandra_seeds: "{{ ansible_eth1.ipv4.address }}"
+cassandra_initialize_cluster: false

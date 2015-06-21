@@ -1,0 +1,30 @@
+---
+- service: name=cassandra state=stopped
+  become: true
+
+- shell: "rm -rf /var/lib/cassandra/commitlog/*"
+  become: true
+
+- shell: "rm -rf /var/lib/cassandra/saved_caches/*"
+  become: true
+
+- shell: "rm -rf /var/lib/cassandra/data/system/*"
+  become: true
+
+- debug: msg="Cassandra {{cassandra_seeds}} {{cassandra_listen_address}}"
+
+- replace: "dest='{{cassandra_config}}' regexp='^(endpoint_snitch:) (.*)?$' replace='\\1 {{cassandra_endpoint_snitch}}'"
+  become: true
+
+- replace: "dest='{{cassandra_config}}' regexp='^(\\s.*?\\- seeds:) (.*)?$' replace='\\1 \"{{cassandra_seeds}}\"'"
+  become: true
+
+- replace: "dest='{{cassandra_config}}' regexp='^(listen_address:) (.*)?$' replace='\\1 {{cassandra_listen_address}}'"
+  become: true
+
+- replace: "dest='{{cassandra_config}}' regexp='^(cluster_name:) (.*)?$' replace='\\1 {{cassandra_cluster_name}}'"
+  become: true
+
+- service: name=cassandra state=started
+  become: true
+
