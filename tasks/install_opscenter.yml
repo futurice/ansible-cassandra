@@ -13,8 +13,7 @@
 
 - action: apt pkg="{{item}}" state=installed
   with_items:
-    - dsc21
-    - cassandra-tools
+    - opscenter
 
-- service: name=cassandra state=started
+- service: name=opscenterd state=started
   become: true

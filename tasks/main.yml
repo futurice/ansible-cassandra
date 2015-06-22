@@ -29,3 +29,9 @@
 
 - include: initialize_cluster.yml
   when: "{{cassandra_initialize_cluster}}"
+
+- include: install_opscenter.yml
+  when: "{{cassandra_install_opscenter}}"
+
+- service: name=cassandra state=started
+  become: true

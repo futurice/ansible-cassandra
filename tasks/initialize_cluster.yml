@@ -27,4 +27,3 @@
 
 - service: name=cassandra state=started
   become: true
-

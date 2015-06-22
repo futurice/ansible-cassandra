@@ -14,4 +14,8 @@ cassandra_endpoint_snitch: GossipingPropertyFileSnitch
 cassandra_cluster_name: helloworld
 cassandra_listen_address: "{{ ansible_eth1.ipv4.address }}"
 cassandra_seeds: "{{ ansible_eth1.ipv4.address }}"
+
 cassandra_initialize_cluster: false
+
+# OpsCenter package intalls java6; do NOT install opscenter on a cassandra node!
+cassandra_install_opscenter: false
