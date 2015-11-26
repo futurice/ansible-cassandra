@@ -2,6 +2,7 @@
 - file: path="{{jdk_install_path}}" state=directory
 
 - shell: java -version 2>&1 | head -n 1 | awk -F '"' '{print $2}'
+  changed_when: False
   register: java_version_result
 
 - include: install_java.yml
@@ -14,12 +15,14 @@
   become_user: root
 
 - shell: "lsb_release -c|cut -f2"
+  changed_when: False
   register: debian_codename_result
 
 - apt_repository: repo="deb {{debian_mirror}} {{debian_codename_result.stdout}} main contrib non-free" state=present
   when: (ansible_distribution == 'Debian')
 
 - shell: "dpkg -s cassandra|grep Version|cut -d' ' -f2"
+  changed_when: False
   register: cassandra_version_result
 
 - debug: msg="Cassandra {{cassandra_version_result.stdout}} JDK {{java_version_result.stdout}}"
