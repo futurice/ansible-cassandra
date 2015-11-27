@@ -6,4 +6,4 @@
     user: root
     group: root
   roles:
-    - futurice.cassandra
+    - ansible-cassandra
