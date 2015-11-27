@@ -11,10 +11,9 @@
 - action: apt update_cache=yes
   when: result_apt.changed
 
-- action: apt pkg="{{item}}" state=installed
+- action: apt pkg="{{item}}={{cassandra_version}}" state=installed
   with_items:
-    - dsc21
-    - cassandra-tools
+    - cassandra
 
 - service: name=cassandra state=started
   become: true

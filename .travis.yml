@@ -10,7 +10,6 @@ before_install:
 
 install:
   - pip install ansible
-  - ansible-galaxy install futurice.cassandra --roles-path=../ --ignore-errors
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
 script:
