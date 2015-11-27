@@ -15,3 +15,8 @@ install:
 script:
   - "ansible-playbook -i tests/inventory tests/$SITE --syntax-check"
   - "ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo"
+  - >
+    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
