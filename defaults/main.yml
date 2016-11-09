@@ -1,11 +1,11 @@
 ---
-jdk_url: "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-i586.tar.gz"
+jdk_url: "http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-i586.tar.gz"
 jdk_install_path: "/opt/jdk"
-jdk_version: "1.7.0_79"
+jdk_version: "1.8.0_111"
 
 debian_mirror: "http://ftp.uk.debian.org/debian"
 
-cassandra_version: "2.1.6"
+cassandra_version: "3.0"
 
 cassandra_config: "/etc/cassandra/cassandra.yaml"
 
